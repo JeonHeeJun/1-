@@ -13,6 +13,7 @@ type Saying{
     totalComments:Int!
     isMine: Boolean!
     isLike: Boolean!
+    rownum: Int
 }
 type Like{
     id:Int!

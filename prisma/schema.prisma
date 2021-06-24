@@ -8,7 +8,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["createMany"]
+  previewFeatures = ["createMany","orderByRelation"]
 
 }
 
@@ -20,11 +20,13 @@ model User{
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
   comments Comment[]
-  bio String?
-  avatar String?
   sayings Saying[]
   likes Like[]
   tags Tag[]
+  rec recomand?
+  alarm String @default("0,0")
+  token String?
+  isLogin Boolean? 
 }
 model Author{
   id Int @id  @default(autoincrement())
@@ -44,8 +46,15 @@ model Saying{
   text String
   tags Tag[]
   likes Like[]
-
+  rec recomand[]
 }
+model recomand{
+  userId Int @id
+  user User @relation(fields: [userId],references:[id])
+  sayingId Int?
+  saying Saying? @relation(fields: [sayingId], references:[id])
+
+} //unique
 
 model Tag{
   id  Int @id @default(autoincrement())

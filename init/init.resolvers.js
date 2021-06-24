@@ -16,9 +16,9 @@ export default {
             var allAuthor = []
             var allTag = []
             for(var i =0; i<record.length;i++){
-                console.log(i)
+                //console.log(i)
                 allAuthor.push(record[i][0])
-                console.log(record[i][2])
+                //console.log(record[i][2])
                 const temp= JSON.parse(record[i][2].replaceAll('\'','\"'))
                 for(var j=0; j<temp.length;j++){
                     allTag.push(temp[j])

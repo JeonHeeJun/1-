@@ -11,7 +11,12 @@ export default{
                 },
                 take,
                 skip:lastId?1:0,
-                ...(lastId && {cursor:{id:lastId}})
+                ...(lastId && {cursor:{id:lastId}}),
+                orderBy:{
+                    sayings:{
+                        count:"desc"
+                    }
+                }
             })
         )
     }

@@ -3,14 +3,16 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
 import { protextResolver } from "../users.utils";
 import { createWriteStream }from "fs"
-
+import {triggers,scheduleManage} from "../../schedule"
 export default{
     Mutation :{
         editProfile: protextResolver(//Tag가 있다면 disconnect하고 새로운 Tag추가.
             async(_,
-                {name,email,password:newPassword,bio,avatar,tags},
+                {name,email,password:newPassword,bio,avatar,tags,time},
                 {loggedUser}
                 )=>{
+                    //alarm은 "시,분" String
+                    //test단계에선 편의상 0초마다하는걸로 가정.
                 let avatarUrl = null;
                 if(avatar){
                 const {filename, createReadStream} = await avatar;
@@ -56,6 +58,24 @@ export default{
                         name:name
                     }))
                 }
+                if(time){
+                    //trigger에서 기존 스케쥴 갱신.
+                    //test : n 분 0 초마다 sid 갱신
+                    console.log(triggers)
+                    for(var i = 0;i<triggers.length;i++){
+                        if(triggers[i].userId === loggedUser.id){
+                            
+                            const alarm = time.split(',')
+                            triggers[i].job.reschedule(`${alarm[0]} * * * * *`)
+    
+                            break;
+                        }
+                    }
+                    //const job = schedule.scheduleJob('0 * * * * *', async (firedata) => {
+                        
+
+                    //})
+                }
                 const updatedUser = await client.user.update(
                 {where:{
                     id: loggedUser.id
@@ -65,7 +85,8 @@ export default{
                     bio,
                     ...(uglyPassword && {password: uglyPassword}),
                     ...(avatarUrl && {avatar: avatarUrl}),
-                    ...(newtag && {tags:{connect:newtag}})
+                    ...(newtag && {tags:{connect:newtag}}),
+                    alarm:time
                 }})
                 if(updatedUser.id){
                     return{

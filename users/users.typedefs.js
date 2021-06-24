@@ -13,6 +13,7 @@ export default gql `
         tags:[Tag]
         totalSayings:Int
         totalLikes:Int
+        totalRank:Int
     }
 
 `;

@@ -20,6 +20,19 @@ export default{
         where:{
             userId:id
         }
-    }))
+    })),
+    totalRank:async ({id})=>{
+        //유저가 올린 명언들의 좋아요 수 총합.
+        console.log("id: ",id)
+        const total =await client.$queryRaw(`
+        select count(*)
+        from "Like" as L
+        where L."sayingId" in (
+        select id
+        from "Saying" as S
+        where S."userId" = ${id}
+        )`)
+        return(total[0].count)
+    }
 }
 }

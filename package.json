@@ -25,20 +25,22 @@
     "@babel/preset-env": "^7.13.10",
     "@prisma/cli": "^2.18.0",
     "nodemon": "^2.0.7",
-    "prisma": "^2.22.1"
+    "prisma": "^2.19.0"
   },
   "dependencies": {
-    "@prisma/client": "^2.18.0",
+    "@prisma/client": "^2.19.0",
     "apollo-server": "^2.21.1",
     "apollo-server-express": "^2.22.0",
     "bcrypt": "^5.0.1",
     "csv-parse": "^4.15.3",
     "dotenv": "^8.2.0",
+    "expo-server-sdk": "^3.6.0",
     "express": "^4.17.1",
     "graphql": "^15.5.0",
     "graphql-tools": "^7.0.3",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
+    "node-schedule": "^2.0.0",
     "prettier-plugin-prisma": "^0.6.0",
     "sql-template-tag": "^4.0.0"
   },

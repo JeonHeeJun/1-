@@ -8,6 +8,7 @@ type Mutation {
             bio:String
             avatar:Upload
             tags:[String]
+            time:String
         ):MutationResponse
 }
 `;
